@@ -54,215 +54,16 @@ SELECT p.id, '192.168.10.0/24', '192.168.180.0/24'
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
 
-INSERT INTO xdp_profile_crypto_policies (
-    id,
-    profile_id,
-    priority,
-    action,
-    protocol,
-    src_cidr,
-    src_port,
-    dst_cidr,
-    dst_port,
-    crypto_mode,
-    aes_bits,
-    nonce_size,
-    crypto_key
-)
-SELECT
-    205,
-    p.id,
-    100,
-    'bypass',
-    'UDP',
-    'Any',
-    'Any',
-    'Any',
-    '5201',
-    'gcm',
-    128,
-    16,
-    NULL
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id,
-    profile_id,
-    priority,
-    action,
-    protocol,
-    src_cidr,
-    src_port,
-    dst_cidr,
-    dst_port,
-    crypto_mode,
-    aes_bits,
-    nonce_size,
-    crypto_key
-)
-SELECT
-    206,
-    p.id,
-    110,
-    'encrypt_l2',
-    'UDP',
-    'Any',
-    'Any',
-    'Any',
-    '5202',
-    'gcm',
-    128,
-    16,
-    '2b7e151628aed2a6abf7158809cf4f3c'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id,
-    profile_id,
-    priority,
-    action,
-    protocol,
-    src_cidr,
-    src_port,
-    dst_cidr,
-    dst_port,
-    crypto_mode,
-    aes_bits,
-    nonce_size,
-    crypto_key
-)
-SELECT
-    207,
-    p.id,
-    120,
-    'encrypt_l3',
-    'UDP',
-    'Any',
-    'Any',
-    'Any',
-    '5203',
-    'gcm',
-    128,
-    16,
-    '5b95b6540e1785f1797661e2413becd5'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id,
-    profile_id,
-    priority,
-    action,
-    protocol,
-    src_cidr,
-    src_port,
-    dst_cidr,
-    dst_port,
-    crypto_mode,
-    aes_bits,
-    nonce_size,
-    crypto_key
-)
-SELECT
-    208,
-    p.id,
-    130,
-    'encrypt_l4',
-    'UDP',
-    'Any',
-    'Any',
-    'Any',
-    '5204',
-    'ctr',
-    128,
-    16,
-    '00112233445566778899aabbccddeeff'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
+-- Policy metadata only (match tuples are stored in xdp_profile_crypto_policy_matches)
 INSERT INTO xdp_profile_crypto_policies (
     id, profile_id, priority, action, protocol,
     src_cidr, src_port, dst_cidr, dst_port,
     crypto_mode, aes_bits, nonce_size, crypto_key
 )
 SELECT
-    217, p.id, 140, 'bypass', 'UDP',
-    '192.168.10.10', 'Any', '192.168.180.20', '5301',
-    'gcm', 128, 16, NULL
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    218, p.id, 150, 'encrypt_l2', 'UDP',
-    '192.168.10.11', 'Any', '192.168.180.0/24', '5302',
-    'gcm', 128, 16, '2b7e151628aed2a6abf7158809cf4f3c'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    219, p.id, 160, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.33', '5303',
-    'gcm', 128, 16, '5b95b6540e1785f1797661e2413becd5'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    220, p.id, 170, 'encrypt_l4', 'UDP',
-    '!192.168.10.0/24', 'Any', '192.168.180.44', '5304',
-    'ctr', 128, 16, '00112233445566778899aabbccddeeff'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    221, p.id, 180, 'encrypt_l3', 'TCP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '5401',
-    'gcm', 128, 16, '5b95b6540e1785f1797661e2413becd5'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    222, p.id, 190, 'encrypt_l4', 'TCP',
-    '!192.168.10.50', 'Any', 'Any', '5402',
-    'ctr', 128, 16, '00112233445566778899aabbccddeeff'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    223, p.id, 200, 'bypass', 'ICMP',
+    400, p.id, 100, 'encrypt_l2', 'TCP',
     'Any', 'Any', 'Any', 'Any',
-    'gcm', 128, 16, NULL
+    'gcm', 128, 12, '2b7e151628aed2a6abf7158809cf4f3c'
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
 
@@ -272,9 +73,9 @@ INSERT INTO xdp_profile_crypto_policies (
     crypto_mode, aes_bits, nonce_size, crypto_key
 )
 SELECT
-    224, p.id, 210, 'encrypt_l2', 'ANY',
-    '!192.168.10.20', 'Any', '!192.168.180.99', 'Any',
-    'gcm', 128, 16, '2b7e151628aed2a6abf7158809cf4f3c'
+    401, p.id, 110, 'encrypt_l3', 'TCP',
+    'Any', 'Any', 'Any', 'Any',
+    'gcm', 128, 12, '5b95b6540e1785f1797661e2413becd5'
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
 
@@ -284,21 +85,33 @@ INSERT INTO xdp_profile_crypto_policies (
     crypto_mode, aes_bits, nonce_size, crypto_key
 )
 SELECT
-    226, p.id, 220, 'encrypt_l4', 'ANY',
-    '192.168.100.0/24,10.0.1.24', 'Any', '192.168.0.0/24,10.2.4.0/12,192.168.182.2,!192.168.100.11', 'Any',
-    'ctr', 128, 16, '00112233445566778899aabbccddeeff'
+    402, p.id, 120, 'encrypt_l4', 'UDP',
+    'Any', 'Any', 'Any', 'Any',
+    'ctr', 128, 12, '00112233445566778899aabbccddeeff'
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
 
--- === Priority / overlap lab (forward 192.168.10.x -> 192.168.180.x) ===
 INSERT INTO xdp_profile_crypto_policies (
     id, profile_id, priority, action, protocol,
     src_cidr, src_port, dst_cidr, dst_port,
     crypto_mode, aes_bits, nonce_size, crypto_key
 )
 SELECT
-    171, p.id, 40, 'encrypt_l3', 'UDP',
-    '192.168.10.20/32', 'Any', '192.168.180.20/32', '6005',
+    403, p.id, 130, 'bypass', 'ANY',
+    'Any', 'Any', 'Any', 'Any',
+    'gcm', 128, 12, NULL
+FROM xdp_profiles p
+WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
+
+-- overlap test: 404 and 405 match same tuple; top-down should pick 405 (priority=40)
+INSERT INTO xdp_profile_crypto_policies (
+    id, profile_id, priority, action, protocol,
+    src_cidr, src_port, dst_cidr, dst_port,
+    crypto_mode, aes_bits, nonce_size, crypto_key
+)
+SELECT
+    404, p.id, 150, 'encrypt_l3', 'UDP',
+    'Any', 'Any', 'Any', 'Any',
     'gcm', 128, 12, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
@@ -309,101 +122,22 @@ INSERT INTO xdp_profile_crypto_policies (
     crypto_mode, aes_bits, nonce_size, crypto_key
 )
 SELECT
-    172, p.id, 120, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6005',
-    'gcm', 128, 12, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    173, p.id, 88, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6006',
-    'gcm', 128, 12, 'cccccccccccccccccccccccccccccccc'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    174, p.id, 88, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6006',
-    'gcm', 128, 12, 'dddddddddddddddddddddddddddddddd'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    175, p.id, 10, 'encrypt_l3', 'ANY',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6007',
-    'gcm', 128, 12, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    176, p.id, 200, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6007',
-    'gcm', 128, 12, 'ffffffffffffffffffffffffffffffff'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    177, p.id, 15, 'bypass', 'UDP',
-    '192.168.10.40/32', 'Any', '192.168.180.40/32', '6009',
+    405, p.id, 40, 'bypass', 'UDP',
+    'Any', 'Any', 'Any', 'Any',
     'gcm', 128, 12, NULL
 FROM xdp_profiles p
 WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
 
-INSERT INTO xdp_profile_crypto_policies (
-    id, profile_id, priority, action, protocol,
-    src_cidr, src_port, dst_cidr, dst_port,
-    crypto_mode, aes_bits, nonce_size, crypto_key
-)
-SELECT
-    178, p.id, 45, 'encrypt_l3', 'UDP',
-    '192.168.10.0/24', 'Any', '192.168.180.0/24', '6009',
-    'gcm', 128, 12, '0123456789abcdef0123456789abcdef'
-FROM xdp_profiles p
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
--- Normalize policy match tuples into child table (direction-2 schema)
-INSERT INTO xdp_profile_crypto_policy_matches (policy_id, src_cidr, src_port, dst_cidr, dst_port)
-SELECT cp.id, cp.src_cidr, cp.src_port, cp.dst_cidr, cp.dst_port
-FROM xdp_profile_crypto_policies cp
-JOIN xdp_profiles p ON p.id = cp.profile_id
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30';
-
--- Extra match row for same policy ID (single policy -> multiple destinations)
-INSERT INTO xdp_profile_crypto_policy_matches (policy_id, src_cidr, src_port, dst_cidr, dst_port)
-SELECT cp.id, 'Any', 'Any', '10.1.1.0/24', 'Any'
-FROM xdp_profile_crypto_policies cp
-JOIN xdp_profiles p ON p.id = cp.profile_id
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30' AND cp.id = 171;
-
--- Extra match row for same policy ID (single policy -> multiple sources)
-INSERT INTO xdp_profile_crypto_policy_matches (policy_id, src_cidr, src_port, dst_cidr, dst_port)
-SELECT cp.id, '10.2.2.0/24', 'Any', '192.168.180.40/32', '6009'
-FROM xdp_profile_crypto_policies cp
-JOIN xdp_profiles p ON p.id = cp.profile_id
-WHERE p.config_id = 31 AND p.profile_name = 'wan_enp4s0_enp5s0_70_30' AND cp.id = 177;
+-- grouped matches: same policy_id appears on multiple rows
+INSERT INTO xdp_profile_crypto_policy_matches (policy_id, src_cidr, src_port, dst_cidr, dst_port) VALUES
+(400, 'Any',              'Any', '10.1.1.0/24',       'Any'),
+(400, 'Any',              'Any', '10.1.2.0/24',       'Any'),
+(400, 'Any',              'Any', '10.1.2.55/32',      'Any'),
+(401, '10.5.10.0/24',     'Any', '!10.4.10.0/24',     'Any'),
+(401, '10.5.10.77/32',    'Any', '!10.4.10.0/24',     'Any'),
+(402, '10.2.2.0/24',      'Any', '10.3.2.0/24',       'Any'),
+(403, '10.1.1.0/24',      'Any', '10.11.0.0/24',      'Any'),
+(403, '10.1.2.0/24',      'Any', '10.11.0.0/24',      'Any'),
+(403, '10.1.2.99/32',     'Any', '10.11.0.10/32',     'Any'),
+(404, '192.168.10.0/24',  'Any', '192.168.180.0/24',  '6009'),
+(405, '192.168.10.40/32', 'Any', '192.168.180.40/32', '6009');
